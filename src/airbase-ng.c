@@ -372,7 +372,7 @@ pCF_t       rCF;
 void print_usage()
 {
     printf(  "\n");
-    printf(  "  %s - (C) 2008-2010 Thomas d'Otreppe\n",getVersion("Airbase-ng", _MAJ, _MIN, _SUB_MIN, _REVISION, _BETA, _RC));
+    printf(  "  %s - (C) 2008-2013 Thomas d'Otreppe\n",getVersion("Airbase-ng", _MAJ, _MIN, _SUB_MIN, _REVISION, _BETA, _RC));
     printf(_("  Original work: Martin Beck\n"));
     printf(  "  http://www.aircrack-ng.org\n");
     printf(  "\n");
