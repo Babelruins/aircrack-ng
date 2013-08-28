@@ -68,6 +68,12 @@
 #include "osdep/osdep.h"
 #include "osdep/common.h"
 
+//Added for translation support
+#include <libgen.h>
+#include <libintl.h>
+#include <locale.h>
+#define _(String) gettext (String)
+
 #ifdef USE_GCRYPT
     GCRY_THREAD_OPTION_PTHREAD_IMPL;
 #endif
@@ -152,58 +158,6 @@ extern unsigned char * getmac(char * macAddress, int strict, unsigned char * mac
 extern int add_crc32(unsigned char* data, int length);
 
 extern const unsigned long int crc_tbl[256];
-
-char usage[] =
-"\n"
-"  %s - (C) 2008-2013 Thomas d'Otreppe\n"
-"  Original work: Martin Beck\n"
-"  http://www.aircrack-ng.org\n"
-"\n"
-"  usage: airbase-ng <options> <replay interface>\n"
-"\n"
-"  Options:\n"
-"\n"
-"      -a bssid         : set Access Point MAC address\n"
-"      -i iface         : capture packets from this interface\n"
-// "      -y file          : read PRGA from this file\n"
-"      -w WEP key       : use this WEP key to en-/decrypt packets\n"
-// "      -t tods          : send frames to AP (1) or to client (0)\n"
-// "      -r file          : read frames out of pcap file\n"
-"      -h MAC           : source mac for MITM mode\n"
-"      -f disallow      : disallow specified client MACs (default: allow)\n"
-"      -W 0|1           : [don't] set WEP flag in beacons 0|1 (default: auto)\n"
-"      -q               : quiet (do not print statistics)\n"
-"      -v               : verbose (print more messages)\n"
-//"      -M               : M-I-T-M between [specified] clients and bssids\n"
-"      -A               : Ad-Hoc Mode (allows other clients to peer)\n"
-"      -Y in|out|both   : external packet processing\n"
-"      -c channel       : sets the channel the AP is running on\n"
-"      -X               : hidden ESSID\n"
-"      -s               : force shared key authentication (default: auto)\n"
-"      -S               : set shared key challenge length (default: 128)\n"
-"      -L               : Caffe-Latte WEP attack (use if driver can't send frags)\n"
-"      -N               : cfrag WEP attack (recommended)\n"
-"      -x nbpps         : number of packets per second (default: 100)\n"
-"      -y               : disables responses to broadcast probes\n"
-"      -0               : set all WPA,WEP,open tags. can't be used with -z & -Z\n"
-"      -z type          : sets WPA1 tags. 1=WEP40 2=TKIP 3=WRAP 4=CCMP 5=WEP104\n"
-"      -Z type          : same as -z, but for WPA2\n"
-"      -V type          : fake EAPOL 1=MD5 2=SHA1 3=auto\n"
-"      -F prefix        : write all sent and received frames into pcap file\n"
-"      -P               : respond to all probes, even when specifying ESSIDs\n"
-"      -I interval      : sets the beacon interval value in ms\n"
-"      -C seconds       : enables beaconing of probed ESSID values (requires -P)\n"
-"\n"
-"  Filter options:\n"
-"      --bssid MAC      : BSSID to filter/use\n"
-"      --bssids file    : read a list of BSSIDs out of that file\n"
-"      --client MAC     : MAC of client to filter\n"
-"      --clients file   : read a list of MACs out of that file\n"
-"      --essid ESSID    : specify a single ESSID (default: default)\n"
-"      --essids file    : read a list of ESSIDs out of that file\n"
-"\n"
-"      --help           : Displays this usage screen\n"
-"\n";
 
 struct options
 {
@@ -415,6 +369,60 @@ pMAC_t      rClient;
 pFrag_t     rFragment;
 pCF_t       rCF;
 
+void print_usage()
+{
+    printf(  "\n");
+    printf(  "  %s - (C) 2008-2010 Thomas d'Otreppe\n",getVersion("Airbase-ng", _MAJ, _MIN, _SUB_MIN, _REVISION, _BETA, _RC));
+    printf(_("  Original work: Martin Beck\n"));
+    printf(  "  http://www.aircrack-ng.org\n");
+    printf(  "\n");
+    printf(_("  usage: airbase-ng <options> <replay interface>\n"));
+    printf(  "\n");
+    printf(_("  Options:\n"));
+    printf(  "\n");
+    printf(_("      -a bssid         : set Access Point MAC address\n"));
+    printf(_("      -i iface         : capture packets from this interface\n"));
+    //printf(_("      -y file          : read PRGA from this file\n"));
+    printf(_("      -w WEP key       : use this WEP key to en-/decrypt packets\n"));
+    //printf(_("      -t tods          : send frames to AP (1) or to client (0)\n"));
+    //printf(_("      -r file          : read frames out of pcap file\n"));
+    printf(_("      -h MAC           : source mac for MITM mode\n"));
+    printf(_("      -f disallow      : disallow specified client MACs (default: allow)\n"));
+    printf(_("      -W 0|1           : [don't] set WEP flag in beacons 0|1 (default: auto)\n"));
+    printf(_("      -q               : quiet (do not print statistics)\n"));
+    printf(_("      -v               : verbose (print more messages)\n"));
+    //printf(_("      -M               : M-I-T-M between [specified] clients and bssids\n"));
+    printf(_("      -A               : Ad-Hoc Mode (allows other clients to peer)\n"));
+    printf(_("      -Y in|out|both   : external packet processing\n"));
+    printf(_("      -c channel       : sets the channel the AP is running on\n"));
+    printf(_("      -X               : hidden ESSID\n"));
+    printf(_("      -s               : force shared key authentication (default: auto)\n"));
+    printf(_("      -S               : set shared key challenge length (default: 128)\n"));
+    printf(_("      -L               : Caffe-Latte WEP attack (use if driver can't send frags)\n"));
+    printf(_("      -N               : cfrag WEP attack (recommended)\n"));
+    printf(_("      -x nbpps         : number of packets per second (default: 100)\n"));
+    printf(_("      -y               : disables responses to broadcast probes\n"));
+    printf(_("      -0               : set all WPA,WEP,open tags. can't be used with -z & -Z\n"));
+    printf(_("      -z type          : sets WPA1 tags. 1=WEP40 2=TKIP 3=WRAP 4=CCMP 5=WEP104\n"));
+    printf(_("      -Z type          : same as -z, but for WPA2\n"));
+    printf(_("      -V type          : fake EAPOL 1=MD5 2=SHA1 3=auto\n"));
+    printf(_("      -F prefix        : write all sent and received frames into pcap file\n"));
+    printf(_("      -P               : respond to all probes, even when specifying ESSIDs\n"));
+    printf(_("      -I interval      : sets the beacon interval value in ms\n"));
+    printf(_("      -C seconds       : enables beaconing of probed ESSID values (requires -P)\n"));
+    printf(  "\n");
+    printf(_("  Filter options:\n"));
+    printf(_("      --bssid MAC      : BSSID to filter/use\n"));
+    printf(_("      --bssids file    : read a list of BSSIDs out of that file\n"));
+    printf(_("      --client MAC     : MAC of client to filter\n"));
+    printf(_("      --clients file   : read a list of MACs out of that file\n"));
+    printf(_("      --essid ESSID    : specify a single ESSID (default: default)\n"));
+    printf(_("      --essids file    : read a list of ESSIDs out of that file\n"));
+    printf(  "\n");
+    printf(_("      --help           : Displays this usage screen\n"));
+    printf(  "\n");
+}
+
 void sighandler( int signum )
 {
     if( signum == SIGINT )
@@ -495,7 +503,7 @@ int capture_packet(uchar* packet, int length)
         flock(fileno(opt.f_cap), LOCK_EX);
         if( fwrite( &pkh, 1, n, opt.f_cap ) != (size_t) n )
         {
-            perror( "fwrite(packet header) failed" );
+            perror( _("fwrite(packet header) failed") );
             flock(fileno(opt.f_cap), LOCK_UN);
             return( 1 );
         }
@@ -506,7 +514,7 @@ int capture_packet(uchar* packet, int length)
 
         if( fwrite( packet, 1, n, opt.f_cap ) != (size_t) n )
         {
-            perror( "fwrite(packet data) failed" );
+            perror( _("fwrite(packet data) failed") );
             flock(fileno(opt.f_cap), LOCK_UN);
             return( 1 );
         }
@@ -565,8 +573,8 @@ int dump_initialize( char *prefix )
 
     if( ( opt.f_cap = fopen( ofn, "wb+" ) ) == NULL )
     {
-        perror( "fopen failed" );
-        fprintf( stderr, "Could not create \"%s\".\n", ofn );
+        perror( _("fopen failed") );
+        fprintf( stderr, _("Could not create \"%s\".\n"), ofn );
         return( 1 );
     }
 
@@ -584,13 +592,13 @@ int dump_initialize( char *prefix )
     if( fwrite( &pfh, 1, sizeof( pfh ), opt.f_cap ) !=
                 (size_t) sizeof( pfh ) )
     {
-        perror( "fwrite(pcap file header) failed" );
+        perror( _("fwrite(pcap file header) failed") );
         return( 1 );
     }
 
     if(!opt.quiet)
     {
-        PCT; printf("Created capture file \"%s\".\n", ofn);
+        PCT; printf(_("Created capture file \"%s\".\n"), ofn);
     }
 
     return( 0 );
@@ -638,7 +646,7 @@ int addFrag(unsigned char* packet, unsigned char* smac, int len)
         if (decrypt_wep( frame + z + 4, len - z - 4,
                         K, 3 + opt.weplen ) == 0 && (len-z-4 > 8) )
         {
-            printf("error decrypting... len: %d\n", len-z-4);
+            printf(_("error decrypting... len: %d\n"), len-z-4);
             return -1;
         }
 
@@ -1125,7 +1133,7 @@ int addESSIDfile(char* filename)
     list = fopen(filename, "r");
     if(list == NULL)
     {
-        perror("Unable to open ESSID list");
+        perror(_("Unable to open ESSID list"));
         return -1;
     }
 
@@ -1154,7 +1162,7 @@ int addMACfile(pMAC_t pMAC, char* filename)
     list = fopen(filename, "r");
     if(list == NULL)
     {
-        perror("Unable to open MAC list");
+        perror(_("Unable to open MAC list"));
         return -1;
     }
 
@@ -1238,7 +1246,7 @@ int msleep( int msec )
         {
             if( read( dev.fd_rtc, &n, sizeof( n ) ) < 0 )
             {
-                perror( "read(/dev/rtc) failed" );
+                perror( _("read(/dev/rtc) failed") );
                 return( 1 );
             }
 
@@ -1350,7 +1358,7 @@ int check_shared_key(unsigned char *h80211, int caplen)
     {
         if(!opt.quiet)
         {
-            PCT; printf("Broken SKA: %02X:%02X:%02X:%02X:%02X:%02X (expected: %d, got %d bytes)\n",
+            PCT; printf(_("Broken SKA: %02X:%02X:%02X:%02X:%02X:%02X (expected: %d, got %d bytes)\n"),
                         *(opt.sharedkey[0]+m_dmac), *(opt.sharedkey[0]+m_dmac+1), *(opt.sharedkey[0]+m_dmac+2),
                         *(opt.sharedkey[0]+m_dmac+3), *(opt.sharedkey[0]+m_dmac+4), *(opt.sharedkey[0]+m_dmac+5),
                         textlen+4, opt.sk_len2);
@@ -1419,7 +1427,7 @@ int check_shared_key(unsigned char *h80211, int caplen)
 
     if(!opt.quiet)
     {
-        PCT; printf("Got %d bytes keystream: %02X:%02X:%02X:%02X:%02X:%02X\n",
+        PCT; printf(_("Got %d bytes keystream: %02X:%02X:%02X:%02X:%02X:%02X\n"),
                     textlen+4, *(opt.sharedkey[0]+m_dmac), *(opt.sharedkey[0]+m_dmac+1), *(opt.sharedkey[0]+m_dmac+2),
                   *(opt.sharedkey[0]+m_dmac+3), *(opt.sharedkey[0]+m_dmac+4), *(opt.sharedkey[0]+m_dmac+5));
     }
@@ -1439,14 +1447,14 @@ int read_prga(unsigned char **dest, char *file)
 
     if( memcmp( file+(strlen(file)-4), ".xor", 4 ) != 0 )
     {
-        printf("Is this really a PRGA file: %s?\n", file);
+        printf(_("Is this really a PRGA file: %s?\n"), file);
     }
 
     f = fopen(file, "r");
 
     if(f == NULL)
     {
-         printf("Error opening %s\n", file);
+         printf(_("Error opening %s\n"), file);
          return( 1 );
     }
 
@@ -1459,13 +1467,13 @@ int read_prga(unsigned char **dest, char *file)
     if( fread( (*dest), size, 1, f ) != 1 )
     {
     	fclose(f);
-        fprintf( stderr, "fread failed\n" );
+        fprintf( stderr, _("fread failed\n") );
         return( 1 );
     }
 
     if( (*dest)[3] > 0x03 )
     {
-        printf("Are you really sure that this is a valid keystream? Because the index is out of range (0-3): %02X\n", (*dest)[3] );
+        printf(_("Are you really sure that this is a valid keystream? Because the index is out of range (0-3): %02X\n"), (*dest)[3] );
     }
 
     opt.prgalen = size;
@@ -1508,7 +1516,7 @@ void print_packet ( uchar h80211[], int caplen )
 	int i,j;
 	int key_index_offset=0;
 
-	printf( "        Size: %d, FromDS: %d, ToDS: %d",
+	printf( _("        Size: %d, FromDS: %d, ToDS: %d"),
 		caplen, ( h80211[1] & 2 ) >> 1, ( h80211[1] & 1 ) );
 
 	if( ( h80211[0] & 0x0C ) == 8 && ( h80211[1] & 0x40 ) != 0 )
@@ -1528,7 +1536,7 @@ void print_packet ( uchar h80211[], int caplen )
 	{
 		if( i == 224 )
 		{
-		printf( "\n        --- CUT ---" );
+		printf( _("\n        --- CUT ---" ));
 		break;
 		}
 
@@ -1582,7 +1590,7 @@ int set_IVidx(unsigned char* packet)
 
     if(opt.prga == NULL && opt.crypt != CRYPT_WEP)
     {
-        printf("Please specify a WEP key (-w).\n");
+        printf(_("Please specify a WEP key (-w).\n"));
         return 1;
     }
 
@@ -1614,13 +1622,13 @@ int encrypt_data(unsigned char* data, int length)
 
     if(opt.prga == NULL && opt.crypt != CRYPT_WEP)
     {
-        printf("Please specify a WEP key (-w).\n");
+        printf(_("Please specify a WEP key (-w).\n"));
         return 1;
     }
 
     if(opt.prgalen-4 < length && opt.crypt != CRYPT_WEP)
     {
-        printf("Please specify a longer PRGA file (-y) with at least %i bytes.\n", (length+4));
+        printf(_("Please specify a longer PRGA file (-y) with at least %i bytes.\n"), (length+4));
         return 1;
     }
 
@@ -2115,7 +2123,7 @@ int addCF(uchar* packet, int length)
     {
         if(opt.verbose)
         {
-            PCT; printf("Ignored IPv6 packet.\n");
+            PCT; printf(_("Ignored IPv6 packet.\n"));
         }
 
         return 1;
@@ -2125,7 +2133,7 @@ int addCF(uchar* packet, int length)
     {
         if(opt.verbose)
         {
-            PCT; printf("Ignored DHCP Discover packet.\n");
+            PCT; printf(_("Ignored DHCP Discover packet.\n"));
         }
 
         return 1;
@@ -2293,13 +2301,13 @@ int addCF(uchar* packet, int length)
 
     if(opt.cf_count == 1 && !opt.quiet)
     {
-        PCT; printf("Starting Hirte attack against %02X:%02X:%02X:%02X:%02X:%02X at %d pps.\n",
+        PCT; printf(_("Starting Hirte attack against %02X:%02X:%02X:%02X:%02X:%02X at %d pps.\n"),
                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5],opt.r_nbpps);
     }
 
     if(opt.verbose)
     {
-        PCT; printf("Added %s packet to cfrag buffer.\n", isarp?"ARP":"IP");
+        PCT; printf(_("Added %s packet to cfrag buffer.\n"), isarp?"ARP":"IP");
     }
 
     return 0;
@@ -2360,13 +2368,13 @@ int addarp(uchar* packet, int length)
 
     if(opt.nb_arp == 1 && !opt.quiet)
     {
-        PCT; printf("Starting Caffe-Latte attack against %02X:%02X:%02X:%02X:%02X:%02X at %d pps.\n",
+        PCT; printf(_("Starting Caffe-Latte attack against %02X:%02X:%02X:%02X:%02X:%02X at %d pps.\n"),
                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5],opt.r_nbpps);
     }
 
     if(opt.verbose)
     {
-        PCT; printf("Added an ARP to the caffe-latte ringbuffer %d/%d\n", opt.nb_arp, opt.ringbuffer);
+        PCT; printf(_("Added an ARP to the caffe-latte ringbuffer %d/%d\n"), opt.nb_arp, opt.ringbuffer);
     }
 
     return 0;
@@ -2392,21 +2400,21 @@ int store_wpa_handshake(struct ST_info *st_cur)
 
     if( ( f_ivs = fopen( ofn, "wb+" ) ) == NULL )
     {
-        perror( "fopen failed" );
-        fprintf( stderr, "Could not create \"%s\".\n", ofn );
+        perror( _("fopen failed") );
+        fprintf( stderr, _("Could not create \"%s\".\n"), ofn );
         return( 1 );
     }
 
     if( fwrite( IVS2_MAGIC, 1, 4, f_ivs ) != (size_t) 4 )
     {
-        perror( "fwrite(IVs file MAGIC) failed" );
+        perror( _("fwrite(IVs file MAGIC) failed") );
         fclose( f_ivs );
         return( 1 );
     }
 
     if( fwrite( &fivs2, 1, sizeof(struct ivs2_filehdr), f_ivs ) != (size_t) sizeof(struct ivs2_filehdr) )
     {
-        perror( "fwrite(IVs file header) failed" );
+        perror( _("fwrite(IVs file header) failed") );
         fclose( f_ivs );
         return( 1 );
     }
@@ -2426,14 +2434,14 @@ int store_wpa_handshake(struct ST_info *st_cur)
     if( fwrite( &ivs2, 1, sizeof(struct ivs2_pkthdr), f_ivs )
         != (size_t) sizeof(struct ivs2_pkthdr) )
     {
-        perror( "fwrite(IV header) failed" );
+        perror( _("fwrite(IV header) failed") );
         fclose( f_ivs );
         return( 1 );
     }
 
     if( fwrite( opt.r_bssid, 1, 6, f_ivs ) != (size_t) 6 )
     {
-        perror( "fwrite(IV bssid) failed" );
+        perror( _("fwrite(IV bssid) failed") );
         fclose( f_ivs );
         return( 1 );
     }
@@ -2443,7 +2451,7 @@ int store_wpa_handshake(struct ST_info *st_cur)
     if( fwrite( st_cur->essid, 1, st_cur->essid_length, f_ivs )
         != (size_t) st_cur->essid_length )
     {
-        perror( "fwrite(IV essid) failed" );
+        perror( _("fwrite(IV essid) failed") );
         fclose( f_ivs );
         return( 1 );
     }
@@ -2459,14 +2467,14 @@ int store_wpa_handshake(struct ST_info *st_cur)
     if( fwrite( &ivs2, 1, sizeof(struct ivs2_pkthdr), f_ivs )
         != (size_t) sizeof(struct ivs2_pkthdr) )
     {
-        perror( "fwrite(IV header) failed" );
+        perror( _("fwrite(IV header) failed") );
         fclose( f_ivs );
         return( 1 );
     }
 
     if( fwrite( &(st_cur->wpa), 1, sizeof(struct WPA_hdsk), f_ivs ) != (size_t) sizeof(struct WPA_hdsk) )
     {
-        perror( "fwrite(IV wpa_hdsk) failed" );
+        perror( _("fwrite(IV wpa_hdsk) failed") );
         fclose( f_ivs );
         return( 1 );
     }
@@ -2592,7 +2600,7 @@ int packet_recv(uchar* packet, int length, struct AP_conf *apc, int external)
         if( ! ( st_cur = (struct ST_info *) malloc(
                          sizeof( struct ST_info ) ) ) )
         {
-            perror( "malloc failed" );
+            perror( _("malloc failed") );
             return( 1 );
         }
 
@@ -2722,7 +2730,7 @@ int packet_recv(uchar* packet, int length, struct AP_conf *apc, int external)
                     /* got eapol start frame */
                     if(opt.verbose)
                     {
-                        PCT; printf("Got EAPOL start frame from %02X:%02X:%02X:%02X:%02X:%02X\n",
+                        PCT; printf(_("Got EAPOL start frame from %02X:%02X:%02X:%02X:%02X:%02X\n"),
                                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5]);
                     }
                     st_cur->wpa.state = 0;
@@ -2835,7 +2843,7 @@ int packet_recv(uchar* packet, int length, struct AP_conf *apc, int external)
                     store_wpa_handshake(st_cur);
                     if(!opt.quiet)
                     {
-                        PCT; printf("Got WPA handshake from %02X:%02X:%02X:%02X:%02X:%02X\n",
+                        PCT; printf(_("Got WPA handshake from %02X:%02X:%02X:%02X:%02X:%02X\n"),
                                     smac[0],smac[1],smac[2],smac[3],smac[4],smac[5]);
                     }
 
@@ -2987,7 +2995,7 @@ skip_probe:
 
                     if(opt.verbose)
                     {
-                        PCT; printf("Got directed probe request from %02X:%02X:%02X:%02X:%02X:%02X - \"%s\"\n",
+                        PCT; printf(_("Got directed probe request from %02X:%02X:%02X:%02X:%02X:%02X - \"%s\"\n"),
                                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5], essid);
                     }
 
@@ -3023,7 +3031,7 @@ skip_probe:
                     if ((temp_channel > 255 || temp_channel < 1) && !invalid_channel_displayed) {
                     	// Display error message once
                     	invalid_channel_displayed = 1;
-                    	fprintf(stderr, "Error: Got channel %d, expected a value < 256. Please report.\n", temp_channel);
+                    	fprintf(stderr, _("Error: Got channel %d, expected a value < 256. Please report.\n"), temp_channel);
                     }
                     packet[length+2] = ((temp_channel > 255 || temp_channel < 1) && opt.channel != 0) ? opt.channel : temp_channel;
 
@@ -3077,7 +3085,7 @@ skip_probe:
 
                     if(opt.verbose)
                     {
-                        PCT; printf("Got broadcast probe request from %02X:%02X:%02X:%02X:%02X:%02X\n",
+                        PCT; printf(_("Got broadcast probe request from %02X:%02X:%02X:%02X:%02X:%02X\n"),
                                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5]);
                     }
 
@@ -3126,7 +3134,7 @@ skip_probe:
                     if ((temp_channel > 255 || temp_channel < 1) && !invalid_channel_displayed) {
                     	// Display error message once
                     	invalid_channel_displayed = 1;
-                    	fprintf(stderr, "Error: Got channel %d, expected a value < 256. Please report.\n", temp_channel);
+                    	fprintf(stderr, _("Error: Got channel %d, expected a value < 256. Please report.\n"), temp_channel);
                     }
                     packet[length+2] = ((temp_channel > 255 || temp_channel < 1) && opt.channel != 0) ? opt.channel : temp_channel;
 
@@ -3183,7 +3191,7 @@ skip_probe:
                 {
                     if(opt.verbose)
                     {
-                        PCT; printf("Got an auth request from %02X:%02X:%02X:%02X:%02X:%02X (open system)\n",
+                        PCT; printf(_("Got an auth request from %02X:%02X:%02X:%02X:%02X:%02X (open system)\n"),
                                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5]);
                     }
                     memcpy(packet +  4, smac, 6);
@@ -3207,7 +3215,7 @@ skip_probe:
                 {
                     if(opt.verbose)
                     {
-                        PCT; printf("Got an auth request from %02X:%02X:%02X:%02X:%02X:%02X (shared key)\n",
+                        PCT; printf(_("Got an auth request from %02X:%02X:%02X:%02X:%02X:%02X (shared key)\n"),
                                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5]);
                     }
                     memcpy(packet +  4, smac, 6);
@@ -3256,7 +3264,7 @@ skip_probe:
                     send_packet(packet, length);
                     check_shared_key(packet, length);
                     if(!opt.quiet)
-                        PCT; printf("SKA from %02X:%02X:%02X:%02X:%02X:%02X\n",
+                        PCT; printf(_("SKA from %02X:%02X:%02X:%02X:%02X:%02X\n"),
                                 smac[0],smac[1],smac[2],smac[3],smac[4],smac[5]);
                 }
             }
@@ -3337,7 +3345,7 @@ skip_probe:
             send_packet(packet, length);
             if(!opt.quiet)
             {
-                PCT; printf("Client %02X:%02X:%02X:%02X:%02X:%02X %sassociated",
+                PCT; printf(_("Client %02X:%02X:%02X:%02X:%02X:%02X %sassociated"),
                         smac[0],smac[1],smac[2],smac[3],smac[4],smac[5], (reasso==0)?"":"re");
                 if(st_cur->wpatype != 0)
                 {
@@ -3357,7 +3365,7 @@ skip_probe:
                 }
                 else
                 {
-                    printf(" (unencrypted)");
+                    printf(_(" (unencrypted)"));
                 }
 
                 if(essid[0] != 0x00)
@@ -3493,7 +3501,7 @@ void beacon_thread( void *arg )
         {
             if( read( dev.fd_rtc, &n, sizeof( n ) ) < 0 )
             {
-                perror( "read(/dev/rtc) failed" );
+                perror( _("read(/dev/rtc) failed") );
                 return;
             }
 
@@ -3580,7 +3588,7 @@ void beacon_thread( void *arg )
             if ((temp_channel > 255 || temp_channel < 1) && !invalid_channel_displayed) {
             	// Display error message once
             	invalid_channel_displayed = 1;
-            	fprintf(stderr, "Error: Got channel %d, expected a value < 256. Please report.\n", temp_channel);
+            	fprintf(stderr, _("Error: Got channel %d, expected a value < 256. Please report.\n"), temp_channel);
             }
             beacon[beacon_len+2] = ((temp_channel > 255 || temp_channel < 1) && opt.channel != 0) ? opt.channel : temp_channel;
 
@@ -3630,7 +3638,7 @@ void beacon_thread( void *arg )
 
             if( send_packet( beacon, beacon_len ) < 0 )
             {
-                printf("Error sending beacon!\n");
+                printf(_("Error sending beacon!\n"));
                 return;
             }
 
@@ -3896,6 +3904,20 @@ void cfrag_thread( void )
 
 int main( int argc, char *argv[] )
 {
+    /* Check for localization file */
+    setlocale( LC_ALL, "" );
+    char * app_path = dirname(argv[0]);
+    char * locale_path = malloc(strlen(app_path)+1+7);
+    strcat(locale_path, app_path);
+    strcat(locale_path, "/locale");
+    if (0 != access(locale_path, F_OK)) {
+        bindtextdomain("airbase-ng",NULL);
+    }
+    else{
+    	bindtextdomain("airbase-ng",locale_path);
+    }
+    textdomain("airbase-ng");
+    
     int ret_val, len, i, n;
     struct pcap_pkthdr pkh;
     fd_set read_fds;
@@ -3993,20 +4015,20 @@ int main( int argc, char *argv[] )
 
             case ':' :
 
-                printf("\"%s --help\" for help.\n", argv[0]);
+                printf(_("\"%s --help\" for help.\n"), argv[0]);
                 return( 1 );
 
             case '?' :
 
-                printf("\"%s --help\" for help.\n", argv[0]);
+                printf(_("\"%s --help\" for help.\n"), argv[0]);
                 return( 1 );
 
             case 'a' :
 
                 if( getmac( optarg, 1, opt.r_bssid ) != 0 )
                 {
-                    printf( "Invalid AP MAC address.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid AP MAC address.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
                 break;
@@ -4016,7 +4038,7 @@ int main( int argc, char *argv[] )
                 opt.channel = atoi(optarg);
                 if (opt.channel > 255 || opt.channel < 1)
                 {
-                	printf("Invalid channel value <%d>. It must be between 1 and 255.\n", opt.channel);
+                	printf(_("Invalid channel value <%d>. It must be between 1 and 255.\n"), opt.channel);
                 	return( 1 );
                 }
 
@@ -4027,8 +4049,8 @@ int main( int argc, char *argv[] )
                 opt.sendeapol = atoi(optarg);
                 if(opt.sendeapol < 1 || opt.sendeapol > 3)
                 {
-                    printf( "EAPOL value can only be 1[MD5], 2[SHA1] or 3[auto].\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("EAPOL value can only be 1[MD5], 2[SHA1] or 3[auto].\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4039,8 +4061,8 @@ int main( int argc, char *argv[] )
                 opt.verbose = 1;
                 if( opt.quiet != 0 )
                 {
-                    printf( "Don't specify -v and -q at the same time.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Don't specify -v and -q at the same time.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4051,8 +4073,8 @@ int main( int argc, char *argv[] )
                 opt.wpa1type = atoi(optarg);
                 if( opt.wpa1type < 1 || opt.wpa1type > 5 )
                 {
-                    printf( "Invalid WPA1 type [1-5]\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid WPA1 type [1-5]\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4068,8 +4090,8 @@ int main( int argc, char *argv[] )
                 opt.wpa2type = atoi(optarg);
                 if( opt.wpa2type < 1 || opt.wpa2type > 5 )
                 {
-                    printf( "Invalid WPA2 type [1-5]\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid WPA2 type [1-5]\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4084,8 +4106,8 @@ int main( int argc, char *argv[] )
 
                 if( addESSID(optarg, strlen(optarg), 0) != 0 )
                 {
-                    printf( "Invalid ESSID, too long\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid ESSID, too long\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4151,8 +4173,8 @@ int main( int argc, char *argv[] )
                 opt.r_nbpps = atoi(optarg);
                 if(opt.r_nbpps < 1 || opt.r_nbpps > 1000)
                 {
-                    printf( "Invalid speed. [1-1000]\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid speed. [1-1000]\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4176,8 +4198,8 @@ int main( int argc, char *argv[] )
                 }
                 else
                 {
-                    printf( "Invalid macfilter mode. [allow|disallow]\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid macfilter mode. [allow|disallow]\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4187,8 +4209,8 @@ int main( int argc, char *argv[] )
 
                 if(atoi(optarg) < 16 || atoi(optarg) > 1480)
                 {
-                    printf( "Invalid challenge length. [16-1480]\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid challenge length. [16-1480]\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4200,8 +4222,8 @@ int main( int argc, char *argv[] )
 
                 if( getmac( optarg, 1, opt.r_smac ) != 0 )
                 {
-                    printf( "Invalid source MAC address.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid source MAC address.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
                 break;
@@ -4210,8 +4232,8 @@ int main( int argc, char *argv[] )
 
                 if( opt.s_face != NULL || opt.s_file )
                 {
-                    printf( "Packet source already specified.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Packet source already specified.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
                 opt.s_face = optarg;
@@ -4221,8 +4243,8 @@ int main( int argc, char *argv[] )
 
                 if(atoi(optarg) < 0 || atoi(optarg) > 1)
                 {
-                    printf( "Invalid argument for (-W). Only \"0\" and \"1\" allowed.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid argument for (-W). Only \"0\" and \"1\" allowed.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4264,8 +4286,8 @@ int main( int argc, char *argv[] )
                 }
                 else
                 {
-                    printf( "Invalid processing mode. [in|out|both]\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid processing mode. [in|out|both]\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4276,8 +4298,8 @@ int main( int argc, char *argv[] )
                 opt.quiet = 1;
                 if( opt.verbose != 0 )
                 {
-                    printf( "Don't specify -v and -q at the same time.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Don't specify -v and -q at the same time.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4287,14 +4309,14 @@ int main( int argc, char *argv[] )
 
                 if( opt.prga != NULL )
                 {
-                    printf( "PRGA file already specified.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("PRGA file already specified.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
                 if( opt.crypt != CRYPT_NONE )
                 {
-                    printf( "Encryption key already specified.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Encryption key already specified.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4311,8 +4333,8 @@ int main( int argc, char *argv[] )
                 {
                     if( n < 0 || n > 255 )
                     {
-                        printf( "Invalid WEP key.\n" );
-                        printf("\"%s --help\" for help.\n", argv[0]);
+                        printf( _("Invalid WEP key.\n") );
+                        printf(_("\"%s --help\" for help.\n"), argv[0]);
                         return( 1 );
                     }
 
@@ -4334,8 +4356,8 @@ int main( int argc, char *argv[] )
 
                 if( i != 5 && i != 13 && i != 16 && i != 29 && i != 61 )
                 {
-                    printf( "Invalid WEP key length.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid WEP key length.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4346,7 +4368,7 @@ int main( int argc, char *argv[] )
             case 'F':
 
                 if (opt.dump_prefix != NULL) {
-                    printf( "Notice: dump prefix already given\n" );
+                    printf( _("Notice: dump prefix already given\n") );
                     break;
                 }
                 /* Write prefix */
@@ -4362,8 +4384,8 @@ int main( int argc, char *argv[] )
                 }
                 else
                 {
-                    printf( "Invalid source MAC address.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid source MAC address.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4388,8 +4410,8 @@ int main( int argc, char *argv[] )
                 }
                 else
                 {
-                    printf( "Invalid BSSID address.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Invalid BSSID address.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
 
@@ -4410,8 +4432,8 @@ int main( int argc, char *argv[] )
 
                 if( opt.s_face != NULL || opt.s_file )
                 {
-                    printf( "Packet source already specified.\n" );
-                    printf("\"%s --help\" for help.\n", argv[0]);
+                    printf( _("Packet source already specified.\n") );
+                    printf(_("\"%s --help\" for help.\n"), argv[0]);
                     return( 1 );
                 }
                 opt.s_file = optarg;
@@ -4419,7 +4441,7 @@ int main( int argc, char *argv[] )
 
             case 'H' :
 
-                printf( usage, getVersion("Airbase-ng", _MAJ, _MIN, _SUB_MIN, _REVISION, _BETA, _RC)  );
+                print_usage();
                 return( 1 );
 
             default : goto usage;
@@ -4431,38 +4453,38 @@ int main( int argc, char *argv[] )
         if(argc == 1)
         {
 usage:
-            printf( usage, getVersion("Airbase-ng", _MAJ, _MIN, _SUB_MIN, _REVISION, _BETA, _RC)  );
+            print_usage();
         }
         if( argc - optind == 0)
         {
-            printf("No replay interface specified.\n");
+            printf(_("No replay interface specified.\n"));
         }
         if(argc > 1)
         {
-            printf("\"%s --help\" for help.\n", argv[0]);
+            printf(_("\"%s --help\" for help.\n"), argv[0]);
         }
         return( 1 );
     }
 
     if( ( memcmp(opt.f_netmask, NULL_MAC, 6) != 0 ) && ( memcmp(opt.f_bssid, NULL_MAC, 6) == 0 ) )
     {
-        printf("Notice: specify bssid \"--bssid\" with \"--netmask\"\n");
-        printf("\"%s --help\" for help.\n", argv[0]);
+        printf(_("Notice: specify bssid \"--bssid\" with \"--netmask\"\n"));
+        printf(_("\"%s --help\" for help.\n"), argv[0]);
         return( 1 );
     }
 
     if( opt.mitm && (getMACcount(rBSSID) != 1 || getMACcount(rClient) < 1) )
     {
-        printf("Notice: You need to specify exactly one BSSID (-b)"
-               " and at least one client MAC (-d)\n");
-        printf("\"%s --help\" for help.\n", argv[0]);
+        printf(_("Notice: You need to specify exactly one BSSID (-b)"
+               " and at least one client MAC (-d)\n"));
+        printf(_("\"%s --help\" for help.\n"), argv[0]);
         return( 1 );
     }
 
     if( opt.wpa1type && opt.wpa2type )
     {
-        printf("Notice: You can only set one method: WPA (-z) or WPA2 (-Z)\n");
-        printf("\"%s --help\" for help.\n", argv[0]);
+        printf(_("Notice: You can only set one method: WPA (-z) or WPA2 (-Z)\n"));
+        printf(_("\"%s --help\" for help.\n"), argv[0]);
         return( 1 );
     }
 
@@ -4476,9 +4498,9 @@ usage:
 
     if( opt.allwpa && (opt.wpa1type || opt.wpa2type) )
     {
-        printf("Notice: You cannot use all WPA tags (-0)"
-               " together with WPA (-z) or WPA2 (-Z)\n");
-        printf("\"%s --help\" for help.\n", argv[0]);
+        printf(_("Notice: You cannot use all WPA tags (-0)"
+               " together with WPA (-z) or WPA2 (-Z)\n"));
+        printf(_("\"%s --help\" for help.\n"), argv[0]);
         return( 1 );
     }
 
@@ -4504,10 +4526,10 @@ usage:
         {
             if( ioctl( dev.fd_rtc, RTC_IRQP_SET, RTC_RESOLUTION ) < 0 )
             {
-                perror( "ioctl(RTC_IRQP_SET) failed" );
+                perror( _("ioctl(RTC_IRQP_SET) failed") );
                 printf(
-"Make sure enhanced rtc device support is enabled in the kernel (module\n"
-"rtc, not genrtc) - also try 'echo 1024 >/proc/sys/dev/rtc/max-user-freq'.\n" );
+_("Make sure enhanced rtc device support is enabled in the kernel (module\n"
+"rtc, not genrtc) - also try 'echo 1024 >/proc/sys/dev/rtc/max-user-freq'.\n") );
                 close( dev.fd_rtc );
                 dev.fd_rtc = -1;
             }
@@ -4515,7 +4537,7 @@ usage:
             {
                 if( ioctl( dev.fd_rtc, RTC_PIE_ON, 0 ) < 0 )
                 {
-                    perror( "ioctl(RTC_PIE_ON) failed" );
+                    perror( _("ioctl(RTC_PIE_ON) failed") );
                     close( dev.fd_rtc );
                     dev.fd_rtc = -1;
                 }
@@ -4523,8 +4545,8 @@ usage:
         }
         else
         {
-            printf( "For information, no action required:"
-                    " Using gettimeofday() instead of /dev/rtc\n" );
+            printf( _("For information, no action required:"
+                    " Using gettimeofday() instead of /dev/rtc\n") );
             dev.fd_rtc = -1;
         }
     }
@@ -4575,7 +4597,7 @@ usage:
     {
         if( ! ( dev.f_cap_in = fopen( opt.s_file, "rb" ) ) )
         {
-            perror( "open failed" );
+            perror( _("open failed") );
             return( 1 );
         }
 
@@ -4583,15 +4605,15 @@ usage:
 
         if( fread( &dev.pfh_in, 1, n, dev.f_cap_in ) != (size_t) n )
         {
-            perror( "fread(pcap file header) failed" );
+            perror( _("fread(pcap file header) failed") );
             return( 1 );
         }
 
         if( dev.pfh_in.magic != TCPDUMP_MAGIC &&
             dev.pfh_in.magic != TCPDUMP_CIGAM )
         {
-            fprintf( stderr, "\"%s\" isn't a pcap file (expected "
-                             "TCPDUMP_MAGIC).\n", opt.s_file );
+            fprintf( stderr, _("\"%s\" isn't a pcap file (expected "
+                             "TCPDUMP_MAGIC).\n"), opt.s_file );
             return( 1 );
         }
 
@@ -4603,10 +4625,10 @@ usage:
             dev.pfh_in.linktype != LINKTYPE_RADIOTAP_HDR &&
             dev.pfh_in.linktype != LINKTYPE_PPI_HDR )
         {
-            fprintf( stderr, "Wrong linktype from pcap file header "
+            fprintf( stderr, _("Wrong linktype from pcap file header "
                              "(expected LINKTYPE_IEEE802_11) -\n"
                              "this doesn't look like a regular 802.11 "
-                             "capture.\n" );
+                             "capture.\n") );
             return( 1 );
         }
     }
@@ -4614,30 +4636,30 @@ usage:
     dev.dv_ti = ti_open(NULL);
     if(!dev.dv_ti)
     {
-        printf( "error opening tap device: %s\n", strerror( errno ) );
+        printf( _("error opening tap device: %s\n"), strerror( errno ) );
         return -1;
     }
 
     if(!opt.quiet)
     {
-        PCT; printf( "Created tap interface %s\n", ti_name(dev.dv_ti));
+        PCT; printf( _("Created tap interface %s\n"), ti_name(dev.dv_ti));
     }
 
     //Set MTU on tun/tap interface to a preferred value
     if(!opt.quiet)
     {
-        PCT; printf( "Trying to set MTU on %s to %i\n", ti_name(dev.dv_ti), opt.ti_mtu);
+        PCT; printf( _("Trying to set MTU on %s to %i\n"), ti_name(dev.dv_ti), opt.ti_mtu);
     }
     if( ti_set_mtu(dev.dv_ti, opt.ti_mtu) != 0)
     {
         if(!opt.quiet)
         {
-            printf( "error setting MTU on %s\n", ti_name(dev.dv_ti));
+            printf( _("error setting MTU on %s\n"), ti_name(dev.dv_ti));
         }
             opt.ti_mtu = ti_get_mtu(dev.dv_ti);
             if(!opt.quiet)
             {
-                PCT; printf( "MTU on %s remains at %i\n", ti_name(dev.dv_ti), opt.ti_mtu);
+                PCT; printf( _("MTU on %s remains at %i\n"), ti_name(dev.dv_ti), opt.ti_mtu);
             }
     }
 
@@ -4646,15 +4668,15 @@ usage:
     {
         if(!opt.quiet)
         {
-            PCT; printf( "Trying to set MTU on %s to %i\n", _wi_out->wi_interface, opt.wif_mtu);
+            PCT; printf( _("Trying to set MTU on %s to %i\n"), _wi_out->wi_interface, opt.wif_mtu);
         }
         if( wi_set_mtu(_wi_out, opt.wif_mtu) != 0 )
         {
             opt.wif_mtu = wi_get_mtu(_wi_out);
             if(!opt.quiet)
             {
-                printf( "error setting MTU on %s\n", _wi_out->wi_interface);
-                PCT; printf( "MTU on %s remains at %i\n", _wi_out->wi_interface, opt.wif_mtu);
+                printf( _("error setting MTU on %s\n"), _wi_out->wi_interface);
+                PCT; printf( _("MTU on %s remains at %i\n"), _wi_out->wi_interface, opt.wif_mtu);
             }
         }
     }
@@ -4664,15 +4686,15 @@ usage:
         dev.dv_ti2 = ti_open(NULL);
         if(!dev.dv_ti2)
         {
-            printf( "error opening tap device: %s\n", strerror( errno ) );
+            printf( _("error opening tap device: %s\n"), strerror( errno ) );
             return -1;
         }
         if(!opt.quiet)
         {
             PCT;
-            printf( "Created tap interface %s for external processing.\n", ti_name(dev.dv_ti2));
-            printf( "You need to get the interfaces up, read the fames [,modify]\n");
-            printf( "and send them back through the same interface \"%s\".\n", ti_name(dev.dv_ti2));
+            printf( _("Created tap interface %s for external processing.\n"), ti_name(dev.dv_ti2));
+            printf( _("You need to get the interfaces up, read the fames [,modify]\n"));
+            printf( _("and send them back through the same interface \"%s\".\n"), ti_name(dev.dv_ti2));
         }
     }
 
@@ -4725,9 +4747,9 @@ usage:
     if(ti_set_mac(dev.dv_ti, opt.r_bssid) != 0)
     {
         printf("\n");
-        perror("ti_set_mac failed");
-        printf("You most probably want to set the MAC of your TAP interface.\n");
-        printf("ifconfig <iface> hw ether %02X:%02X:%02X:%02X:%02X:%02X\n\n\n",
+        perror(_("ti_set_mac failed"));
+        printf(_("You most probably want to set the MAC of your TAP interface.\n"));
+        printf(_("ifconfig <iface> hw ether %02X:%02X:%02X:%02X:%02X:%02X\n\n\n"),
                 opt.r_bssid[0], opt.r_bssid[1], opt.r_bssid[2],
                 opt.r_bssid[3], opt.r_bssid[4], opt.r_bssid[5]);
     }
@@ -4736,7 +4758,7 @@ usage:
     {
         if(ti_set_mac(dev.dv_ti2, (unsigned char*)"\xba\x98\x76\x54\x32\x10") != 0)
         {
-            printf("Couldn't set MAC on interface \"%s\".\n", ti_name(dev.dv_ti2));
+            printf(_("Couldn't set MAC on interface \"%s\".\n"), ti_name(dev.dv_ti2));
         }
     }
     //start sending beacons
@@ -4771,12 +4793,12 @@ usage:
     {
         if(opt.adhoc)
         {
-            PCT; printf("Sending beacons in Ad-Hoc mode for Cell %02X:%02X:%02X:%02X:%02X:%02X.\n",
+            PCT; printf(_("Sending beacons in Ad-Hoc mode for Cell %02X:%02X:%02X:%02X:%02X:%02X.\n"),
                         opt.r_bssid[0],opt.r_bssid[1],opt.r_bssid[2],opt.r_bssid[3],opt.r_bssid[4],opt.r_bssid[5]);
         }
         else
         {
-            PCT; printf("Access Point with BSSID %02X:%02X:%02X:%02X:%02X:%02X started.\n",
+            PCT; printf(_("Access Point with BSSID %02X:%02X:%02X:%02X:%02X:%02X started.\n"),
                         opt.r_bssid[0],opt.r_bssid[1],opt.r_bssid[2],opt.r_bssid[3],opt.r_bssid[4],opt.r_bssid[5]);
         }
     }
@@ -4789,7 +4811,7 @@ usage:
 
             if( fread( &pkh, n, 1, dev.f_cap_in ) != 1 )
             {
-                PCT; printf("Finished reading input file %s.\n", opt.s_file);
+                PCT; printf(_("Finished reading input file %s.\n"), opt.s_file);
                 opt.s_file = NULL;
                 continue;
             }
@@ -4803,14 +4825,14 @@ usage:
 
             if( n <= 0 || n > (int) sizeof( h80211 ) )
             {
-                PCT; printf("Finished reading input file %s.\n", opt.s_file);
+                PCT; printf(_("Finished reading input file %s.\n"), opt.s_file);
                 opt.s_file = NULL;
                 continue;
             }
 
             if( fread( h80211, n, 1, dev.f_cap_in ) != 1 )
             {
-                PCT; printf("Finished reading input file %s.\n", opt.s_file);
+                PCT; printf(_("Finished reading input file %s.\n"), opt.s_file);
                 opt.s_file = NULL;
                 continue;
             }
