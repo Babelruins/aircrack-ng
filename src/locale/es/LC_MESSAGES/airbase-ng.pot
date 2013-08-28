@@ -1,0 +1,693 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-28 10:50-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: airbase-ng.c:376
+#, c-format
+msgid "  Original work: Martin Beck\n"
+msgstr ""
+
+#: airbase-ng.c:379
+#, c-format
+msgid "  usage: airbase-ng <options> <replay interface>\n"
+msgstr ""
+
+#: airbase-ng.c:381
+#, c-format
+msgid "  Options:\n"
+msgstr ""
+
+#: airbase-ng.c:383
+#, c-format
+msgid "      -a bssid         : set Access Point MAC address\n"
+msgstr ""
+
+#: airbase-ng.c:384
+#, c-format
+msgid "      -i iface         : capture packets from this interface\n"
+msgstr ""
+
+#: airbase-ng.c:386
+#, c-format
+msgid "      -w WEP key       : use this WEP key to en-/decrypt packets\n"
+msgstr ""
+
+#: airbase-ng.c:389
+#, c-format
+msgid "      -h MAC           : source mac for MITM mode\n"
+msgstr ""
+
+#: airbase-ng.c:390
+#, c-format
+msgid ""
+"      -f disallow      : disallow specified client MACs (default: allow)\n"
+msgstr ""
+
+#: airbase-ng.c:391
+#, c-format
+msgid ""
+"      -W 0|1           : [don't] set WEP flag in beacons 0|1 (default: "
+"auto)\n"
+msgstr ""
+
+#: airbase-ng.c:392
+#, c-format
+msgid "      -q               : quiet (do not print statistics)\n"
+msgstr ""
+
+#: airbase-ng.c:393
+#, c-format
+msgid "      -v               : verbose (print more messages)\n"
+msgstr ""
+
+#: airbase-ng.c:395
+#, c-format
+msgid "      -A               : Ad-Hoc Mode (allows other clients to peer)\n"
+msgstr ""
+
+#: airbase-ng.c:396
+#, c-format
+msgid "      -Y in|out|both   : external packet processing\n"
+msgstr ""
+
+#: airbase-ng.c:397
+#, c-format
+msgid "      -c channel       : sets the channel the AP is running on\n"
+msgstr ""
+
+#: airbase-ng.c:398
+#, c-format
+msgid "      -X               : hidden ESSID\n"
+msgstr ""
+
+#: airbase-ng.c:399
+#, c-format
+msgid ""
+"      -s               : force shared key authentication (default: auto)\n"
+msgstr ""
+
+#: airbase-ng.c:400
+#, c-format
+msgid ""
+"      -S               : set shared key challenge length (default: 128)\n"
+msgstr ""
+
+#: airbase-ng.c:401
+#, c-format
+msgid ""
+"      -L               : Caffe-Latte WEP attack (use if driver can't send "
+"frags)\n"
+msgstr ""
+
+#: airbase-ng.c:402
+#, c-format
+msgid "      -N               : cfrag WEP attack (recommended)\n"
+msgstr ""
+
+#: airbase-ng.c:403
+#, c-format
+msgid "      -x nbpps         : number of packets per second (default: 100)\n"
+msgstr ""
+
+#: airbase-ng.c:404
+#, c-format
+msgid "      -y               : disables responses to broadcast probes\n"
+msgstr ""
+
+#: airbase-ng.c:405
+#, c-format
+msgid ""
+"      -0               : set all WPA,WEP,open tags. can't be used with -z & -"
+"Z\n"
+msgstr ""
+
+#: airbase-ng.c:406
+#, c-format
+msgid ""
+"      -z type          : sets WPA1 tags. 1=WEP40 2=TKIP 3=WRAP 4=CCMP "
+"5=WEP104\n"
+msgstr ""
+
+#: airbase-ng.c:407
+#, c-format
+msgid "      -Z type          : same as -z, but for WPA2\n"
+msgstr ""
+
+#: airbase-ng.c:408
+#, c-format
+msgid "      -V type          : fake EAPOL 1=MD5 2=SHA1 3=auto\n"
+msgstr ""
+
+#: airbase-ng.c:409
+#, c-format
+msgid ""
+"      -F prefix        : write all sent and received frames into pcap file\n"
+msgstr ""
+
+#: airbase-ng.c:410
+#, c-format
+msgid ""
+"      -P               : respond to all probes, even when specifying ESSIDs\n"
+msgstr ""
+
+#: airbase-ng.c:411
+#, c-format
+msgid "      -I interval      : sets the beacon interval value in ms\n"
+msgstr ""
+
+#: airbase-ng.c:412
+#, c-format
+msgid ""
+"      -C seconds       : enables beaconing of probed ESSID values (requires -"
+"P)\n"
+msgstr ""
+
+#: airbase-ng.c:414
+#, c-format
+msgid "  Filter options:\n"
+msgstr ""
+
+#: airbase-ng.c:415
+#, c-format
+msgid "      --bssid MAC      : BSSID to filter/use\n"
+msgstr ""
+
+#: airbase-ng.c:416
+#, c-format
+msgid "      --bssids file    : read a list of BSSIDs out of that file\n"
+msgstr ""
+
+#: airbase-ng.c:417
+#, c-format
+msgid "      --client MAC     : MAC of client to filter\n"
+msgstr ""
+
+#: airbase-ng.c:418
+#, c-format
+msgid "      --clients file   : read a list of MACs out of that file\n"
+msgstr ""
+
+#: airbase-ng.c:419
+#, c-format
+msgid "      --essid ESSID    : specify a single ESSID (default: default)\n"
+msgstr ""
+
+#: airbase-ng.c:420
+#, c-format
+msgid "      --essids file    : read a list of ESSIDs out of that file\n"
+msgstr ""
+
+#: airbase-ng.c:422
+#, c-format
+msgid "      --help           : Displays this usage screen\n"
+msgstr ""
+
+#: airbase-ng.c:506
+msgid "fwrite(packet header) failed"
+msgstr ""
+
+#: airbase-ng.c:517
+msgid "fwrite(packet data) failed"
+msgstr ""
+
+#: airbase-ng.c:576 airbase-ng.c:2403
+msgid "fopen failed"
+msgstr ""
+
+#: airbase-ng.c:577 airbase-ng.c:2404
+#, c-format
+msgid "Could not create \"%s\".\n"
+msgstr ""
+
+#: airbase-ng.c:595
+msgid "fwrite(pcap file header) failed"
+msgstr ""
+
+#: airbase-ng.c:601
+#, c-format
+msgid "Created capture file \"%s\".\n"
+msgstr ""
+
+#: airbase-ng.c:649
+#, c-format
+msgid "error decrypting... len: %d\n"
+msgstr ""
+
+#: airbase-ng.c:1136
+msgid "Unable to open ESSID list"
+msgstr ""
+
+#: airbase-ng.c:1165
+msgid "Unable to open MAC list"
+msgstr ""
+
+#: airbase-ng.c:1249 airbase-ng.c:3504
+msgid "read(/dev/rtc) failed"
+msgstr ""
+
+#: airbase-ng.c:1361
+#, c-format
+msgid ""
+"Broken SKA: %02X:%02X:%02X:%02X:%02X:%02X (expected: %d, got %d bytes)\n"
+msgstr ""
+
+#: airbase-ng.c:1430
+#, c-format
+msgid "Got %d bytes keystream: %02X:%02X:%02X:%02X:%02X:%02X\n"
+msgstr ""
+
+#: airbase-ng.c:1450
+#, c-format
+msgid "Is this really a PRGA file: %s?\n"
+msgstr ""
+
+#: airbase-ng.c:1457
+#, c-format
+msgid "Error opening %s\n"
+msgstr ""
+
+#: airbase-ng.c:1470
+#, c-format
+msgid "fread failed\n"
+msgstr ""
+
+#: airbase-ng.c:1476
+#, c-format
+msgid ""
+"Are you really sure that this is a valid keystream? Because the index is out "
+"of range (0-3): %02X\n"
+msgstr ""
+
+#: airbase-ng.c:1519
+#, c-format
+msgid "        Size: %d, FromDS: %d, ToDS: %d"
+msgstr ""
+
+#: airbase-ng.c:1539
+#, c-format
+msgid ""
+"\n"
+"        --- CUT ---"
+msgstr ""
+
+#: airbase-ng.c:1593 airbase-ng.c:1625
+#, c-format
+msgid "Please specify a WEP key (-w).\n"
+msgstr ""
+
+#: airbase-ng.c:1631
+#, c-format
+msgid "Please specify a longer PRGA file (-y) with at least %i bytes.\n"
+msgstr ""
+
+#: airbase-ng.c:2126
+#, c-format
+msgid "Ignored IPv6 packet.\n"
+msgstr ""
+
+#: airbase-ng.c:2136
+#, c-format
+msgid "Ignored DHCP Discover packet.\n"
+msgstr ""
+
+#: airbase-ng.c:2304
+#, c-format
+msgid ""
+"Starting Hirte attack against %02X:%02X:%02X:%02X:%02X:%02X at %d pps.\n"
+msgstr ""
+
+#: airbase-ng.c:2310
+#, c-format
+msgid "Added %s packet to cfrag buffer.\n"
+msgstr ""
+
+#: airbase-ng.c:2371
+#, c-format
+msgid ""
+"Starting Caffe-Latte attack against %02X:%02X:%02X:%02X:%02X:%02X at %d "
+"pps.\n"
+msgstr ""
+
+#: airbase-ng.c:2377
+#, c-format
+msgid "Added an ARP to the caffe-latte ringbuffer %d/%d\n"
+msgstr ""
+
+#: airbase-ng.c:2410
+msgid "fwrite(IVs file MAGIC) failed"
+msgstr ""
+
+#: airbase-ng.c:2417
+msgid "fwrite(IVs file header) failed"
+msgstr ""
+
+#: airbase-ng.c:2437 airbase-ng.c:2470
+msgid "fwrite(IV header) failed"
+msgstr ""
+
+#: airbase-ng.c:2444
+msgid "fwrite(IV bssid) failed"
+msgstr ""
+
+#: airbase-ng.c:2454
+msgid "fwrite(IV essid) failed"
+msgstr ""
+
+#: airbase-ng.c:2477
+msgid "fwrite(IV wpa_hdsk) failed"
+msgstr ""
+
+#: airbase-ng.c:2603
+msgid "malloc failed"
+msgstr ""
+
+#: airbase-ng.c:2733
+#, c-format
+msgid "Got EAPOL start frame from %02X:%02X:%02X:%02X:%02X:%02X\n"
+msgstr ""
+
+#: airbase-ng.c:2846
+#, c-format
+msgid "Got WPA handshake from %02X:%02X:%02X:%02X:%02X:%02X\n"
+msgstr ""
+
+#: airbase-ng.c:2998
+#, c-format
+msgid ""
+"Got directed probe request from %02X:%02X:%02X:%02X:%02X:%02X - \"%s\"\n"
+msgstr ""
+
+#: airbase-ng.c:3034 airbase-ng.c:3137 airbase-ng.c:3591
+#, c-format
+msgid "Error: Got channel %d, expected a value < 256. Please report.\n"
+msgstr ""
+
+#: airbase-ng.c:3088
+#, c-format
+msgid "Got broadcast probe request from %02X:%02X:%02X:%02X:%02X:%02X\n"
+msgstr ""
+
+#: airbase-ng.c:3194
+#, c-format
+msgid "Got an auth request from %02X:%02X:%02X:%02X:%02X:%02X (open system)\n"
+msgstr ""
+
+#: airbase-ng.c:3218
+#, c-format
+msgid "Got an auth request from %02X:%02X:%02X:%02X:%02X:%02X (shared key)\n"
+msgstr ""
+
+#: airbase-ng.c:3267
+#, c-format
+msgid "SKA from %02X:%02X:%02X:%02X:%02X:%02X\n"
+msgstr ""
+
+#: airbase-ng.c:3348
+#, c-format
+msgid "Client %02X:%02X:%02X:%02X:%02X:%02X %sassociated"
+msgstr ""
+
+#: airbase-ng.c:3368
+#, c-format
+msgid " (unencrypted)"
+msgstr ""
+
+#: airbase-ng.c:3641
+#, c-format
+msgid "Error sending beacon!\n"
+msgstr ""
+
+#: airbase-ng.c:4018 airbase-ng.c:4023 airbase-ng.c:4031 airbase-ng.c:4053
+#: airbase-ng.c:4065 airbase-ng.c:4077 airbase-ng.c:4094 airbase-ng.c:4110
+#: airbase-ng.c:4177 airbase-ng.c:4202 airbase-ng.c:4213 airbase-ng.c:4226
+#: airbase-ng.c:4236 airbase-ng.c:4247 airbase-ng.c:4290 airbase-ng.c:4302
+#: airbase-ng.c:4313 airbase-ng.c:4319 airbase-ng.c:4337 airbase-ng.c:4360
+#: airbase-ng.c:4388 airbase-ng.c:4414 airbase-ng.c:4436 airbase-ng.c:4464
+#: airbase-ng.c:4472 airbase-ng.c:4480 airbase-ng.c:4487 airbase-ng.c:4503
+#, c-format
+msgid "\"%s --help\" for help.\n"
+msgstr ""
+
+#: airbase-ng.c:4030
+#, c-format
+msgid "Invalid AP MAC address.\n"
+msgstr ""
+
+#: airbase-ng.c:4041
+#, c-format
+msgid "Invalid channel value <%d>. It must be between 1 and 255.\n"
+msgstr ""
+
+#: airbase-ng.c:4052
+#, c-format
+msgid "EAPOL value can only be 1[MD5], 2[SHA1] or 3[auto].\n"
+msgstr ""
+
+#: airbase-ng.c:4064 airbase-ng.c:4301
+#, c-format
+msgid "Don't specify -v and -q at the same time.\n"
+msgstr ""
+
+#: airbase-ng.c:4076
+#, c-format
+msgid "Invalid WPA1 type [1-5]\n"
+msgstr ""
+
+#: airbase-ng.c:4093
+#, c-format
+msgid "Invalid WPA2 type [1-5]\n"
+msgstr ""
+
+#: airbase-ng.c:4109
+#, c-format
+msgid "Invalid ESSID, too long\n"
+msgstr ""
+
+#: airbase-ng.c:4176
+#, c-format
+msgid "Invalid speed. [1-1000]\n"
+msgstr ""
+
+#: airbase-ng.c:4201
+#, c-format
+msgid "Invalid macfilter mode. [allow|disallow]\n"
+msgstr ""
+
+#: airbase-ng.c:4212
+#, c-format
+msgid "Invalid challenge length. [16-1480]\n"
+msgstr ""
+
+#: airbase-ng.c:4225 airbase-ng.c:4387
+#, c-format
+msgid "Invalid source MAC address.\n"
+msgstr ""
+
+#: airbase-ng.c:4235 airbase-ng.c:4435
+#, c-format
+msgid "Packet source already specified.\n"
+msgstr ""
+
+#: airbase-ng.c:4246
+#, c-format
+msgid "Invalid argument for (-W). Only \"0\" and \"1\" allowed.\n"
+msgstr ""
+
+#: airbase-ng.c:4289
+#, c-format
+msgid "Invalid processing mode. [in|out|both]\n"
+msgstr ""
+
+#: airbase-ng.c:4312
+#, c-format
+msgid "PRGA file already specified.\n"
+msgstr ""
+
+#: airbase-ng.c:4318
+#, c-format
+msgid "Encryption key already specified.\n"
+msgstr ""
+
+#: airbase-ng.c:4336
+#, c-format
+msgid "Invalid WEP key.\n"
+msgstr ""
+
+#: airbase-ng.c:4359
+#, c-format
+msgid "Invalid WEP key length.\n"
+msgstr ""
+
+#: airbase-ng.c:4371
+#, c-format
+msgid "Notice: dump prefix already given\n"
+msgstr ""
+
+#: airbase-ng.c:4413
+#, c-format
+msgid "Invalid BSSID address.\n"
+msgstr ""
+
+#: airbase-ng.c:4460
+#, c-format
+msgid "No replay interface specified.\n"
+msgstr ""
+
+#: airbase-ng.c:4471
+#, c-format
+msgid "Notice: specify bssid \"--bssid\" with \"--netmask\"\n"
+msgstr ""
+
+#: airbase-ng.c:4478
+#, c-format
+msgid ""
+"Notice: You need to specify exactly one BSSID (-b) and at least one client "
+"MAC (-d)\n"
+msgstr ""
+
+#: airbase-ng.c:4486
+#, c-format
+msgid "Notice: You can only set one method: WPA (-z) or WPA2 (-Z)\n"
+msgstr ""
+
+#: airbase-ng.c:4501
+#, c-format
+msgid ""
+"Notice: You cannot use all WPA tags (-0) together with WPA (-z) or WPA2 (-"
+"Z)\n"
+msgstr ""
+
+#: airbase-ng.c:4529
+msgid "ioctl(RTC_IRQP_SET) failed"
+msgstr ""
+
+#: airbase-ng.c:4531
+#, c-format
+msgid ""
+"Make sure enhanced rtc device support is enabled in the kernel (module\n"
+"rtc, not genrtc) - also try 'echo 1024 >/proc/sys/dev/rtc/max-user-freq'.\n"
+msgstr ""
+
+#: airbase-ng.c:4540
+msgid "ioctl(RTC_PIE_ON) failed"
+msgstr ""
+
+#: airbase-ng.c:4548
+#, c-format
+msgid ""
+"For information, no action required: Using gettimeofday() instead of /dev/"
+"rtc\n"
+msgstr ""
+
+#: airbase-ng.c:4600
+msgid "open failed"
+msgstr ""
+
+#: airbase-ng.c:4608
+msgid "fread(pcap file header) failed"
+msgstr ""
+
+#: airbase-ng.c:4615
+#, c-format
+msgid "\"%s\" isn't a pcap file (expected TCPDUMP_MAGIC).\n"
+msgstr ""
+
+#: airbase-ng.c:4628
+#, c-format
+msgid ""
+"Wrong linktype from pcap file header (expected LINKTYPE_IEEE802_11) -\n"
+"this doesn't look like a regular 802.11 capture.\n"
+msgstr ""
+
+#: airbase-ng.c:4639 airbase-ng.c:4689
+#, c-format
+msgid "error opening tap device: %s\n"
+msgstr ""
+
+#: airbase-ng.c:4645
+#, c-format
+msgid "Created tap interface %s\n"
+msgstr ""
+
+#: airbase-ng.c:4651 airbase-ng.c:4671
+#, c-format
+msgid "Trying to set MTU on %s to %i\n"
+msgstr ""
+
+#: airbase-ng.c:4657 airbase-ng.c:4678
+#, c-format
+msgid "error setting MTU on %s\n"
+msgstr ""
+
+#: airbase-ng.c:4662 airbase-ng.c:4679
+#, c-format
+msgid "MTU on %s remains at %i\n"
+msgstr ""
+
+#: airbase-ng.c:4695
+#, c-format
+msgid "Created tap interface %s for external processing.\n"
+msgstr ""
+
+#: airbase-ng.c:4696
+#, c-format
+msgid "You need to get the interfaces up, read the fames [,modify]\n"
+msgstr ""
+
+#: airbase-ng.c:4697
+#, c-format
+msgid "and send them back through the same interface \"%s\".\n"
+msgstr ""
+
+#: airbase-ng.c:4750
+msgid "ti_set_mac failed"
+msgstr ""
+
+#: airbase-ng.c:4751
+#, c-format
+msgid "You most probably want to set the MAC of your TAP interface.\n"
+msgstr ""
+
+#: airbase-ng.c:4752
+#, c-format
+msgid ""
+"ifconfig <iface> hw ether %02X:%02X:%02X:%02X:%02X:%02X\n"
+"\n"
+"\n"
+msgstr ""
+
+#: airbase-ng.c:4761
+#, c-format
+msgid "Couldn't set MAC on interface \"%s\".\n"
+msgstr ""
+
+#: airbase-ng.c:4796
+#, c-format
+msgid ""
+"Sending beacons in Ad-Hoc mode for Cell %02X:%02X:%02X:%02X:%02X:%02X.\n"
+msgstr ""
+
+#: airbase-ng.c:4801
+#, c-format
+msgid "Access Point with BSSID %02X:%02X:%02X:%02X:%02X:%02X started.\n"
+msgstr ""
+
+#: airbase-ng.c:4814 airbase-ng.c:4828 airbase-ng.c:4835
+#, c-format
+msgid "Finished reading input file %s.\n"
+msgstr ""
