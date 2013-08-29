@@ -3914,7 +3914,7 @@ int main( int argc, char *argv[] )
         bindtextdomain("airbase-ng",NULL);
     }
     else{
-    	bindtextdomain("airbase-ng",locale_path);
+        bindtextdomain("airbase-ng",locale_path);
     }
     textdomain("airbase-ng");
     
